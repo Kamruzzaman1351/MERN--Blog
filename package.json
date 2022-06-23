@@ -1,0 +1,12 @@
+{
+  "name": "mern-blog",
+  "version": "1.0.0",
+  "description": "MERN Blog Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "keywords": [],
+  "author": "Kamruzzaman",
+  "license": "ISC"
+}
