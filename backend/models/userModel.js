@@ -11,6 +11,10 @@ const userSchema = mongoose.Schema({
         require: [true, "Please add email"],
         unique: [true, "Email allready be used"]
     },
+    userType: {
+        type: String,
+        default: "user"
+    },
     password: {
         type: String,
         require: [true, "Please add password"]
