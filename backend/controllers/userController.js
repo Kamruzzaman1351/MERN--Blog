@@ -61,8 +61,16 @@ const loginUser = asyncHandler(async(req, res) => {
 // @route GET /user/profile
 // @access Only User
 const showUser = asyncHandler(async(req, res) => {
+    if(!req.user) {
+        res.status(400)
+        throw new Error("User Not Authorized")        
+    }
+    const user = await User.findById(req.user.id)
+    const{_id, name, email} = user
     res.status(200).json({
-        message: "User Info"
+        id: _id,
+        name,
+        email
     })
 })
 
