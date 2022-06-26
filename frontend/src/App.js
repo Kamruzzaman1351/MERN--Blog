@@ -5,6 +5,8 @@ import Registration from "./pages/user/Registration"
 import Dashboard from "./pages/user/Dashboard"
 import MyPost from "./pages/user/MyPost"
 import Header from "./components/shared/Header"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/user/register" element={<Registration />} />
         </Routes>
       </div>
+      <ToastContainer />
     </BrowserRouter>
     </>
   );

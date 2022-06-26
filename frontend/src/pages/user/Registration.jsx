@@ -1,8 +1,9 @@
 import {FaUser} from "react-icons/fa"
-import { useState } from "react"
-
-
-
+import { useState, useEffect } from "react"
+import { toast } from "react-toastify"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { register, reset } from "../../features/user/userSlice"
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,22 @@ const Registration = () => {
   })
 
   const {name, email, password, password1} = formData
+  
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {isLoading, isError, user, isMessage, isSuccess} = useSelector((state) => state.user)
+  useEffect(() => {
+    if(isError) {
+      toast.error(isMessage, {autoClose:1500})
+    }
+    if(user || isSuccess) {
+      navigate("/user/dashboard")
+      toast.success("Registration complete", {autoClose:1000})
+    }
+
+    dispatch(reset())
+  }, [isError, user, isMessage, isSuccess, navigate, dispatch])
+
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -23,7 +40,19 @@ const Registration = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
+    if(!name || !email || !password) {
+      toast.error("Please fill all the input fields", {autoClose:1000})
+    }
+    if(password !== password1) {
+      toast.error("Password does not match", {autoClose:1000})
+    } else {
+      const userData = {name, email, password}
+      dispatch(register(userData))
+    }
+  }
+
+  if(isLoading) {
+    return <h2> Loading...</h2>
   }
 
   return (
