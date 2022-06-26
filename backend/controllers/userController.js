@@ -3,7 +3,7 @@ const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 // @desc Register User
-// @route POST /user/signup
+// @route POST /api/users/signup
 // @access Open
 const signUpUser = asyncHandler(async(req,res) => {
     const {name, email, password} = req.body
@@ -38,7 +38,7 @@ const signUpUser = asyncHandler(async(req,res) => {
 })
 
 // @desc Login User
-// @route POST /user/login
+// @route POST /api/users/login
 // @access User
 const loginUser = asyncHandler(async(req, res) => {
     const {email, password} = req.body
@@ -58,7 +58,7 @@ const loginUser = asyncHandler(async(req, res) => {
 })
 
 // @desc Show User Info
-// @route GET /user/profile
+// @route GET /api/users/profile
 // @access Only User
 const showUser = asyncHandler(async(req, res) => {
     if(!req.user) {
@@ -75,12 +75,11 @@ const showUser = asyncHandler(async(req, res) => {
 })
 
 // @desc Show User List
-// @route GET /user/all
+// @route GET /api/users/all
 // @access Only Admin
 const allUsers = asyncHandler(async(req, res) => {
-    res.status(200).json({
-        message: "All Users"
-    })
+    const users = await User.find().sort( { createdAt: -1 } )
+    res.status(200).json(users)
 })
 
 // Create JWT
