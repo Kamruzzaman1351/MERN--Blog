@@ -1,11 +1,29 @@
 import {FaSignInAlt} from "react-icons/fa"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { signIn, reset } from "../../features/user/userSlice"
+import { useSelector, useDispatch } from "react-redux"
+import {useNavigate} from "react-router-dom"
+import { toast } from "react-toastify"
 const Login = () => {
   const [formData, setFormData] = useState({
     email:"",
     password: ""
   })
   const {email, password} = formData
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {user, isError, isSuccess, isMessage, isLoading} = useSelector((state) => state.user)
+  useEffect(() => {
+    if(isError) {
+      toast.error(isMessage, {autoClose:1500})
+    }
+    if(isSuccess && user) {
+      navigate("/user/dashboard")
+      toast.success("You are login", {autoClose:1000})
+    }
+    dispatch(reset())
+  }, [user, isError, isSuccess, isMessage, isLoading, navigate, dispatch])
+
   const onChange = (e) => {
     setFormData((prevState) =>({
       ...prevState,
@@ -14,10 +32,15 @@ const Login = () => {
   }
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
+    if(!email || !password) {
+      toast.error("Please provide right credintial", {autoClose: 1000})
+    }
+    dispatch(signIn(formData))
   }
 
-
+  if(isLoading) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <>
