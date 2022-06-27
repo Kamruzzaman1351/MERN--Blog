@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { register, reset } from "../../features/user/userSlice"
+import { register, reset } from "../../features/user/auth/userSlice"
 
 const Registration = () => {
   const [formData, setFormData] = useState({

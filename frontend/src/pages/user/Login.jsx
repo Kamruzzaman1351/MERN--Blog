@@ -1,6 +1,6 @@
 import {FaSignInAlt} from "react-icons/fa"
 import { useState, useEffect } from "react"
-import { signIn, reset } from "../../features/user/userSlice"
+import { signIn, reset } from "../../features/user/auth/userSlice"
 import { useSelector, useDispatch } from "react-redux"
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify"
