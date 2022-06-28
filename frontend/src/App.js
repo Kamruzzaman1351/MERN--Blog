@@ -7,6 +7,7 @@ import MyPost from "./pages/user/MyPost"
 import Header from "./components/shared/Header"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserPrivateRoute from "./components/UserPrivateRoute"
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user/dashboard" element={<Dashboard />} />
-          <Route path="/user/post" element={<MyPost />} />
+          <Route path="/user" element={<UserPrivateRoute />} >
+            <Route path="/user/dashboard" element={<Dashboard />} />
+            <Route path="/user/post" element={<MyPost />} />
+          </Route>
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Registration />} />
         </Routes>
