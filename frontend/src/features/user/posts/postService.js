@@ -21,15 +21,24 @@ const addPost = async (postData, token) => {
             Authorization : `Bearer ${token}`
         }
     }
-    const user = JSON.parse(localStorage.getItem("user"))
     const response = await axios.post(API_URL, postData, config)
     return response.data
 }
 
-
+// Delete post 
+const deletePost = async(id, token) => {
+    const config = {
+        headers: {
+            Authorization : `Bearer ${token}`
+        }
+    }
+    const response = await axios.delete(API_URL + id, config)
+    return response.data
+}
 const postService = {
     getPost,
     addPost,
+    deletePost,
 }
 
 export default postService

@@ -1,19 +1,41 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import PostForm from "../../components/PostForm"
 import PostItem from "../../components/PostItem"
-import { useState } from "react"
-
-
+import { useState, useEffect } from "react"
+import { getPost, deletePost } from "../../features/user/posts/postSlice"
+import { toast } from "react-toastify"
+import Spinner from "../../components/shared/Spinner"
 const Dashboard = () => {
   const [showForm, setShowForm] = useState(false)
   const {user} = useSelector(state => state.user)
-  const {posts} = useSelector(state => state.posts)
+  const {posts, isError, isLoading, isMessage} = useSelector(state => state.posts)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(isError) {
+      toast.error(isMessage, {autoClose:1000})
+    }
+    if(user) {
+      dispatch(getPost())
+    }
+    if(isMessage) {
+      toast.error(isMessage, {autoClose:1000})
+    }
+  }, [user, isError, dispatch, isMessage,])
   const editPost = (id) => {
     console.log(id)
   }
-  const deletePost = (id) => {
-    console.log(id)
+  const postDelete = (id) => {
+    if(window.confirm("Are you sure")) {
+      dispatch(deletePost(id))
+    }
   }
+
+  if(isLoading) {
+    return <Spinner />
+  }
+
+
+
   return (
     <div>
       <div className="dashboardHeading">
@@ -24,7 +46,7 @@ const Dashboard = () => {
       </div>
       {showForm && (
         <div className="postForm">
-          <PostForm />
+          <PostForm setShowForm={setShowForm}/>
         </div>
       )}
       <div>
@@ -33,7 +55,7 @@ const Dashboard = () => {
           <>
             <ul>
               {posts.map((post) => (
-                <PostItem key={post._id} post={post} editPost={editPost} deletePost={deletePost}/>
+                <PostItem key={post._id} post={post} editPost={editPost} deletePost={postDelete}/>
               ))}
             </ul>
           </>

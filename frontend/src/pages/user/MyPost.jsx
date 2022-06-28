@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { getPost } from "../../features/user/posts/postSlice"
 import {useNavigate} from "react-router-dom"
 import PostItem from "../../components/PostItem"
+import Spinner from "../../components/shared/Spinner"
 const MyPost = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ const MyPost = () => {
   }, [user, navigate, dispatch, isError, isMessage])
 
   if(isLoading) {
-    return <h2>Loading...</h2>
+    return <Spinner />
   }
 
   return (

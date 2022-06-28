@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { register, reset } from "../../features/user/auth/userSlice"
+import Spinner from "../../components/shared/Spinner"
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ const Registration = () => {
   }
 
   if(isLoading) {
-    return <h2> Loading...</h2>
+    return <Spinner />
   }
 
   return (
