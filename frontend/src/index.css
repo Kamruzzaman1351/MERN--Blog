@@ -173,6 +173,48 @@ h3 {
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
+.dashboardHeading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.post {
+    background: #f1f1f1;
+    padding: 39px 30px;
+    border-radius: 10px;
+    width: 75%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+
+}
+.postForm {
+    background: #f1f1f1;
+    padding: 39px 30px;
+    border-radius: 10px;
+    width: 80%;
+    margin: 20px auto;
+}
+.postEdit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.postEdit .edit {
+  padding-right: 5px;
+  cursor: pointer;
+}
+.postEdit .delete {
+  cursor: pointer;
+}
+.post-body {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
 
 @keyframes spin {
   0% {

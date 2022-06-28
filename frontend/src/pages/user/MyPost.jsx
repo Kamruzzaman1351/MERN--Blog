@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import {useDispatch, useSelector} from "react-redux"
 import { getPost } from "../../features/user/posts/postSlice"
 import {useNavigate} from "react-router-dom"
-
+import PostItem from "../../components/PostItem"
 const MyPost = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -28,12 +28,12 @@ const MyPost = () => {
       {posts.length > 0 ? (
         <>
           {posts.map((post) => (
-            <h1 key={post._id}>{post.title}</h1>
+            <PostItem key={post._id} post={post}/>
           ))}
         </>
       ) : (
         <>
-          no post
+          <h2>No Post Yet</h2>
         </>
       )}
     </>
