@@ -38,11 +38,9 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="dashboardHeading">
+      <div>
         <h1>Welcome {user.name}</h1>
-        <button className="btn" onClick={() => setShowForm(prevState => !prevState)}>
-          {!showForm ? "Add Post" : "Hide Form"}
-        </button>
+        
       </div>
       {showForm && (
         <div className="postForm">
@@ -50,7 +48,12 @@ const Dashboard = () => {
         </div>
       )}
       <div>
-        <h2>All Posts</h2>
+        <div className="dashboardHeading">
+          <h2>All Posts</h2>
+          <button className="btn" onClick={() => setShowForm(prevState => !prevState)}>
+            {!showForm ? "Add Post" : "Hide Form"}
+          </button>
+        </div>
         {posts.length > 0 ? (
           <>
             <ul>

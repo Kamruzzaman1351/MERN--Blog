@@ -9,6 +9,7 @@ const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
     const {allPost, isLoading, isError, isMessage } = useSelector(state => state.posts)
+    const {user} = useSelector(state => state.user)
     useEffect(() => {
         if(isError) {
             toast.error(isMessage, {autoClose:1000})
@@ -22,7 +23,7 @@ const Home = () => {
     }
   return (
     <div>
-      {allPost ? (
+      {allPost.length !==0 ? (
         <>
           {allPost.map((post) => (
             <HomePostItem key={post._id} post={post}/>
@@ -30,10 +31,10 @@ const Home = () => {
         </>
       ) : (
         <>
-          <div>
+          <div className='noPost'>
             <h4>No Post Yet</h4>
-            <p>Be the first one to create post</p>
-            <button className='btn' onClick={() => navigate("/user/login")}>Create Post</button>
+            <p style={{paddingBottom: "30px"}}>Be the first one to create post</p>
+            <button className='btn' onClick={() => user ?  navigate("/user/dashboard") : navigate("/user/login")}>Create Post</button>
           </div>
         </>
       )}

@@ -8,6 +8,7 @@ import Header from "./components/shared/Header"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserPrivateRoute from "./components/UserPrivateRoute"
+import Footer from "./components/shared/Footer"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/user/register" element={<Registration />} />
         </Routes>
       </div>
+      <Footer />
       <ToastContainer />
     </BrowserRouter>
     </>
