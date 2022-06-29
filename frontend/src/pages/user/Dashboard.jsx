@@ -5,8 +5,11 @@ import { useState, useEffect } from "react"
 import { getPost, deletePost } from "../../features/user/posts/postSlice"
 import { toast } from "react-toastify"
 import Spinner from "../../components/shared/Spinner"
+import PostUpdateForm from "../../components/PostUpdateForm"
 const Dashboard = () => {
   const [showForm, setShowForm] = useState(false)
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
+  const [postData, setPostData] = useState({})
   const {user} = useSelector(state => state.user)
   const {posts, isError, isLoading, isMessage} = useSelector(state => state.posts)
   const dispatch = useDispatch()
@@ -22,7 +25,11 @@ const Dashboard = () => {
     }
   }, [user, isError, dispatch, isMessage,])
   const editPost = (id) => {
-    console.log(id)
+    const post = posts.filter((post) => post._id === id)
+    setPostData(post[0])
+    setShowForm(false)
+    setShowUpdateForm(true)
+    console.log(postData)
   }
   const postDelete = (id) => {
     if(window.confirm("Are you sure")) {
@@ -44,13 +51,27 @@ const Dashboard = () => {
       </div>
       {showForm && (
         <div className="postForm">
-          <PostForm setShowForm={setShowForm}/>
+          <PostForm 
+            setShowForm={setShowForm}
+          />
+        </div>
+      )}
+      {showUpdateForm && (
+        <div className="postForm">
+          <PostUpdateForm
+            setShowForm={setShowUpdateForm}
+            postData= {postData}
+          />
         </div>
       )}
       <div>
         <div className="dashboardHeading">
           <h2>All Posts</h2>
-          <button className="btn" onClick={() => setShowForm(prevState => !prevState)}>
+          <button className="btn" 
+            onClick={() => {
+              setShowForm(prevState => !prevState)
+              setShowUpdateForm(false)
+            }}>
             {!showForm ? "Add Post" : "Hide Form"}
           </button>
         </div>
@@ -58,7 +79,12 @@ const Dashboard = () => {
           <>
             <ul>
               {posts.map((post) => (
-                <PostItem key={post._id} post={post} editPost={editPost} deletePost={postDelete}/>
+                <PostItem 
+                  key={post._id} 
+                  post={post} 
+                  editPost={editPost} 
+                  deletePost={postDelete} 
+                />
               ))}
             </ul>
           </>

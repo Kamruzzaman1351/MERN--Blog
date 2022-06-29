@@ -40,7 +40,7 @@ const createPost = asyncHandler(async(req, res) => {
 })
 
 // @desc Update Post
-// @route PUT /api/post/id
+// @route PUT /api/posts/id
 // @access Private
 const updatePost = asyncHandler(async(req, res) => {
     if(!req.user){
@@ -61,7 +61,7 @@ const updatePost = asyncHandler(async(req, res) => {
 })
 
 // @desc Delete Post
-// @route DELETE /api/post/id
+// @route DELETE /api/posts/id
 // @access Private
 const deletePost = asyncHandler( async(req, res) => {
     if(!req.user) {

@@ -31,6 +31,7 @@ const PostForm = ({setShowForm}) => {
     }
   return (
     <div>
+      <h3>Add Post</h3>
         <form onSubmit={onSubmit}>
           <div className='form-group'>
             <label htmlFor='title'></label>
