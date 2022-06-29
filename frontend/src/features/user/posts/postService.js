@@ -35,10 +35,18 @@ const deletePost = async(id, token) => {
     const response = await axios.delete(API_URL + id, config)
     return response.data
 }
+
+// Get All Posts
+const getAllPosts = async() => {
+    const response = await axios.get("/api/posts/allposts")
+    return response.data
+}
+
 const postService = {
     getPost,
     addPost,
     deletePost,
+    getAllPosts,
 }
 
 export default postService

@@ -33,7 +33,8 @@ const createPost = asyncHandler(async(req, res) => {
     const post = await Post.create({
         title,
         body,
-        user: req.user.id
+        user: req.user.id,
+        user_name: req.user.name
     })
     res.status(201).json(post)
 })
@@ -81,4 +82,13 @@ const deletePost = asyncHandler( async(req, res) => {
     res.status(200).json({ id: post._id })
 })
 
-module.exports = {getPosts, createPost, updatePost, deletePost}
+// @desc Get All Posts
+// @route GET /api/posts/allposts
+// @access Public
+const getAllPosts = asyncHandler(async (req, res) => {
+    const posts = await Post.find().sort({createdAt: -1}).select("-user")
+    res.status(200).json(posts)
+})
+
+
+module.exports = {getPosts, createPost, updatePost, deletePost, getAllPosts}
