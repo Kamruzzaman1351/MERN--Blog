@@ -29,7 +29,6 @@ const Dashboard = () => {
     setPostData(post[0])
     setShowForm(false)
     setShowUpdateForm(true)
-    console.log(postData)
   }
   const postDelete = (id) => {
     if(window.confirm("Are you sure")) {

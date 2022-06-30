@@ -144,7 +144,14 @@ export const postSlice = createSlice({
             .addCase(updatePost.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.posts.push(action.payload) //@ there is an issue here
+                // state.posts = state.posts.filter((post) => post._id !== action.payload._id)
+                // state.posts.push(action.payload)
+                state.posts = state.posts.map(post => post._id === action.payload._id ? 
+                        {   ...post,
+                            title: action.payload.title,
+                            body: action.payload.body
+                        } : post
+                    )
             })
             .addCase(updatePost.rejected, (state, action) => {
                 state.isLoading = false
