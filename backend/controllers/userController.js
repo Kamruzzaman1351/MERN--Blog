@@ -78,8 +78,12 @@ const showUser = asyncHandler(async(req, res) => {
 // @route GET /api/users/all
 // @access Only Admin
 const allUsers = asyncHandler(async(req, res) => {
-    const users = await User.find().sort( { createdAt: -1 } )
-    res.status(200).json(users)
+    if(req.user) {
+        const users = await User.find().sort( { createdAt: -1 } )
+        res.status(200).json(users)
+    } else {
+        res.status(400).json("Not Authorized")
+    }
 })
 
 // Create JWT

@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use("/api/users", require("./routes/userRoutes"))
 app.use("/api/posts", require("./routes/postRouters"))
-
+app.use("/api/admin", require("./routes/adminRouters"))
 
 app.use(errorHandler)
 
