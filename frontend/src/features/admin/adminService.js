@@ -8,8 +8,13 @@ const adminLogin = async (formData) => {
     return response.data
 }
 
+const adminLogout = async() => {
+    localStorage.removeItem("admin")
+}
+
 const adminService = {
     adminLogin,
+    adminLogout,
 }
 
 export default adminService

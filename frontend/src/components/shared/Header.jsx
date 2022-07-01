@@ -2,13 +2,19 @@ import {FaSignInAlt, FaUser,} from 'react-icons/fa'
 import {Link, useNavigate} from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { reset, logout } from '../../features/user/auth/userSlice'
+import { adminLogout } from '../../features/admin/adminSlice'
 const Header = () => {
   const {user} = useSelector(state => state.user)
+  const {admin} = useSelector(state => state.admin)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())   
+    navigate("/")
+  }
+  const logoutAdmin = () => {
+    dispatch(adminLogout())
     navigate("/")
   }
   return (
@@ -17,6 +23,20 @@ const Header = () => {
         <Link to='/'>Blog</Link>
       </div>
       <ul>
+        { admin && (
+        <>
+          <li>
+            <Link to='/admin/allusers'>
+                All Users
+            </Link>
+          </li>
+          <li style={{cursor: "pointer"}}>
+            <p onClick={logoutAdmin}> 
+              Logout
+            </p>
+          </li>
+        </>
+        )}
         {user && (
           <>
              <li>
@@ -36,7 +56,7 @@ const Header = () => {
             </li>
           </>
         )}
-        {!user && (
+        {(!user && !admin) && (
           <>
             <li>
             <Link to='/user/login'>

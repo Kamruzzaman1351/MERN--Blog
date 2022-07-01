@@ -11,7 +11,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserPrivateRoute from "./components/UserPrivateRoute"
 import Footer from "./components/shared/Footer"
-
+import AdminPrivateRoute from "./components/AdminPrivateRoute"
+import UserList from "./pages/admin/UserList"
 function App() {
   return (
     <>
@@ -20,7 +21,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminPrivateRoute />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/allusers" element={<UserList />} />
+          </Route>
           <Route path="/user" element={<UserPrivateRoute />} >
             <Route path="/user/dashboard" element={<Dashboard />} />
             <Route path="/user/post" element={<MyPost />} />

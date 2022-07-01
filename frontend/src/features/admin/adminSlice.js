@@ -22,6 +22,12 @@ export const adminLogin = createAsyncThunk("/admin/login", async(formData, thunk
     }
 })
 
+// Admin Logout
+export const adminLogout = createAsyncThunk("/admin/logout", async() => {
+    return await adminService.adminLogout()
+    
+})
+
 const adminSlice = createSlice({
     name:"admin",
     initialState,
@@ -48,6 +54,9 @@ const adminSlice = createSlice({
                 state.isError = true
                 state.isSuccess = false
                 state.isMessage = action.payload
+            })
+            .addCase(adminLogout.fulfilled, (state) => {
+                state.admin = null
             })
     }
 })
