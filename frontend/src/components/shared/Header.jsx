@@ -26,6 +26,11 @@ const Header = () => {
         { admin && (
         <>
           <li>
+            <Link to='/admin/dashboard'>
+              Dashboard
+            </Link>
+            </li>
+          <li>
             <Link to='/admin/allusers'>
                 All Users
             </Link>
@@ -39,7 +44,7 @@ const Header = () => {
         )}
         {user && (
           <>
-             <li>
+            <li>
               <Link to='/user/dashboard'>
                   Dashboard
               </Link>

@@ -9,6 +9,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isMessage: "",
+    users: [],
 }
 
 // Admin Login
@@ -26,6 +27,18 @@ export const adminLogin = createAsyncThunk("/admin/login", async(formData, thunk
 export const adminLogout = createAsyncThunk("/admin/logout", async() => {
     return await adminService.adminLogout()
     
+})
+
+// Get Users
+export const getUsers = createAsyncThunk("/admin/getusers", async(_, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().admin.admin.token
+        return await adminService.getUsers(token)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+                        || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
 })
 
 const adminSlice = createSlice({
@@ -50,6 +63,20 @@ const adminSlice = createSlice({
                 state.admin = action.payload
             })
             .addCase(adminLogin.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.isMessage = action.payload
+            })
+            .addCase(getUsers.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getUsers.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.users = action.payload
+            })
+            .addCase(getUsers.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.isSuccess = false

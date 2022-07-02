@@ -79,7 +79,7 @@ const showUser = asyncHandler(async(req, res) => {
 // @access Only Admin
 const allUsers = asyncHandler(async(req, res) => {
     if(req.user) {
-        const users = await User.find().sort( { createdAt: -1 } )
+        const users = await User.find().where("userType").equals("user").sort( { createdAt: -1 } )
         res.status(200).json(users)
     } else {
         res.status(400).json("Not Authorized")
