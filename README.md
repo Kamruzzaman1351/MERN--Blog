@@ -1,3 +1,3 @@
 ## MERN Stack Blog Website
 
-[Visite] (https://mernpostappkam.herokuapp.com)
+[Visit] (https://mernpostappkam.herokuapp.com)
